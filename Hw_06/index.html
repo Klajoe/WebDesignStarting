@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Game</title>
+    <style>
+		button {
+			position: absolute;
+			margin-top: 100px;
+			margin-left: 100px;
+		}
+	</style>
+</head>
+<body onload="setButtonTimeout()">
+
+	<button onclick="clickButton()">Click me!</button>
+
+	<script>
+		var level = 1;
+		var clicks = 0;
+
+		function clickButton() {
+			clicks++;
+
+			if (clicks >= 3) {
+				alert("Congratulations, you win level " + level + "!");
+				level++;
+				clicks = 0;
+				setButtonTimeout();
+			}
+		}
+        // İf we set lvl timeout 500 ms in lvl 6 it is equals to 0 not almost impossible absolutely impossible
+        // Because of that I set timeout like this
+		function setButtonTimeout() {
+			if (level <= 6) {
+				var timeout = (7 - level) * 100;
+                
+				setTimeout(function() {
+					moveButton();
+					setButtonTimeout();
+				}, timeout);
+				moveButton();
+			}
+            else
+            {
+                alert("You beat the game");
+            }
+		}
+
+		function moveButton() {
+			var button = document.querySelector('button');
+			const newMarginTop = Math.random() * (window.innerHeight - button.clientHeight) + 'px';
+  			const newMarginLeft = Math.random() * (window.innerWidth - button.clientWidth) + 'px';
+
+  			button.style.marginTop = newMarginTop;
+  			button.style.marginLeft = newMarginLeft;
+		}
+	</script>
+
+</body>
+</html>
